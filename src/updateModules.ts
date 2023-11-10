@@ -29,7 +29,8 @@ async function updateModules(modules: Module[], eventList: CalendarEvent[]) {
   let count = 0;
 
   for (const module of modules) {
-    const moduleId = module.code.replace(/-/g, '').toLowerCase();
+    const moduleId = module.code.replace(/-/g, '')
+      .toLowerCase() + module.id.toString();
     const data: CalendarEvent = {
       id: moduleId,
       summary: module.title,
@@ -43,8 +44,8 @@ async function updateModules(modules: Module[], eventList: CalendarEvent[]) {
       },
       location: module.location_title,
       description: `\
-Semester: ${module.semester}\n
-Credits: ${module.credits}\n
+Semester: ${module.semester}
+Credits: ${module.credits}
 Status: ${statusMap[module.status]}`,
       colorId: colorMap[module.status] || colorMap['default']
     };
