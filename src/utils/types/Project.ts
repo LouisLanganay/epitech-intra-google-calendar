@@ -1,0 +1,41 @@
+interface Project {
+  codeacti: string;
+  call_ihk: string;
+  slug: string;
+  instance_location: string;
+  module_title: string;
+  title: string;
+  description: string;
+  type_title: string;
+  type_code: string;
+  begin: string;
+  start: string;
+  end_register: string;
+  deadline: string;
+  end: string;
+  nb_hours: number | null;
+  nb_group: number;
+  num: number;
+  register: string;
+  register_by_bloc: string;
+  register_prof: string;
+  title_location_type: string | null;
+  is_projet: boolean;
+  id_projet: string;
+  project_title: string;
+  is_note: boolean;
+  nb_notes: number;
+  is_blocins: boolean;
+  rdv_status: string;
+  id_bareme: string | null;
+  title_bareme: string | null;
+  archive: string;
+  hash_elearning: string | null;
+  ged_node_adm: string | null;
+  nb_planified: number | null;
+  hidden: boolean;
+  project: string | null;
+  events: any[];
+}
+
+export default Project;
