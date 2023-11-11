@@ -60,8 +60,14 @@ app.get('/', async (req: any, res: any) => {
 });
 
 app.listen(process.env.PORT, async () => {
-  console.info('Example app listening on port 8888!');
+  console.info('Example app listening on port ', process.env.PORT);
   await main();
-  exit();
+  const result = await fs.promises.stat(TOKEN_PATH).then(() => {
+    return 1;
+  }).catch(() => {
+    return 0;
+  });
+  if (result === 1)
+    exit();
 });
 
