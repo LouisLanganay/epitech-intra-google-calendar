@@ -13,7 +13,8 @@ async function getEventList(): Promise<CalendarEvent[]> {
     calendarId: process.env.GOOGLE_CALENDAR_ID || 'primary',
     maxResults: 2500,
     singleEvents: true,
-    orderBy: 'startTime'
+    orderBy: 'startTime',
+    showDeleted: true
   });
 
   return response.data.items as CalendarEvent[] || [];

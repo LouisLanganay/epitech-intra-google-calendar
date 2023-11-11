@@ -11,10 +11,11 @@ import {
   User
 } from '../types';
 import getUser from './getUser';
+import config from '../../../config.json';
 
 async function getEventSlots(event: Event, user: User): Promise<Slot[]> {
   console.info('Fetching event slots...');
-  const config = {
+  const data = {
     'method': 'get',
     'url': process.env.API_BASE_URL + '/module/' + event.scolaryear + '/' +
     event.codemodule + '/' + event.codeinstance + '/' + event.codeacti +
@@ -24,7 +25,7 @@ async function getEventSlots(event: Event, user: User): Promise<Slot[]> {
     }
   };
 
-  const response = await Axios(config).then((response) => {
+  const response = await Axios(data).then((response) => {
     return response.data.slots.map((slot: any) => {
       return {
         ...slot,
@@ -45,7 +46,7 @@ async function getEventSlots(event: Event, user: User): Promise<Slot[]> {
 
 async function getUserEvent(user: User): Promise<Event[]> {
   console.info('Fetching user events...');
-  const config = {
+  const data = {
     'method': 'get',
     'url': process.env.API_BASE_URL +
           '/planning/load?format=json' + '&start=' +
@@ -55,9 +56,14 @@ async function getUserEvent(user: User): Promise<Event[]> {
     }
   };
 
-  const response = await Axios(config).then((response) => {
+  const { onlyRegistered } = config.display.events;
+
+  const response = await Axios(data).then((response) => {
     return response.data.filter((i: Event) => {
-      return i.event_registered !== false;
+      if (onlyRegistered === true)
+        return i.event_registered !== false;
+      else
+        return i.module_registered === true;
     });
   }).catch((error) => {
     console.error(error);
@@ -72,7 +78,7 @@ async function getUserEvent(user: User): Promise<Event[]> {
 
 async function getUserModules(): Promise<Module[]> {
   console.info('Fetching user modules...');
-  const config = {
+  const data = {
     'method': 'get',
     'url': process.env.API_BASE_URL + '/course/filter?format=json',
     'headers': {
@@ -80,9 +86,16 @@ async function getUserModules(): Promise<Module[]> {
     }
   };
 
-  const response = await Axios(config).then((response) => {
+  const { status, hiddenSemesters, hiddenModules } = config.display.modules;
+  const ToDisplay: string[] = Object.entries(status)
+    .filter(([, value]) => value === true)
+    .map(([key]) => key);
+
+  const response = await Axios(data).then((response) => {
     return response.data.filter((i: Module) => {
-      return i.status === 'ongoing' || i.status === 'valid' || i.status === 'fail';
+      return ToDisplay.includes(i.status) &&
+        hiddenSemesters.includes(i.semester) === false &&
+        hiddenModules.includes(i.code) === false;
     });
   }).catch((error) => {
     console.error(error);
@@ -97,7 +110,7 @@ async function getUserModules(): Promise<Module[]> {
 
 async function getModuleProjects(module: Module): Promise<Project[]> {
   console.info('Fetching module projects...');
-  const config = {
+  const data = {
     'method': 'get',
     'url': process.env.API_BASE_URL + '/module/' +
           module.scolaryear + '/' + module.code + '/' +
@@ -107,7 +120,7 @@ async function getModuleProjects(module: Module): Promise<Project[]> {
     }
   };
 
-  const response = await Axios(config).then((response) => {
+  const response = await Axios(data).then((response) => {
     if (!response.data.activites)
       return [];
     return response.data.activites.filter((i: Project) => {

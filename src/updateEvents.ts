@@ -4,6 +4,7 @@ import { createEvent, updateEvent } from './utils/api';
 import {
   Attendee,
   CalendarEvent,
+  Colors,
   Event,
   Member
 } from './utils/types';
@@ -38,7 +39,9 @@ async function updateEventSlots(event: Event, eventList: CalendarEvent[]) {
         },
         colorId: getEventColor(event.type_title),
         location: slot.room ?? null,
-        description: subSlot.note ?? null,
+        description: `\
+${subSlot.note && 'Note: ' + subSlot.note}
+Room: ${subSlot.code}`,
         attendees: attendees
       };
       if (eventList.find((e) => e.id === subEventId)) {
@@ -56,6 +59,7 @@ async function updateEvents(events: Event[], eventList: CalendarEvent[]) {
 
   for (const event of events) {
     const eventId = (event.codeevent || event.codeacti).replace('-', '');
+    const isRegistered = event.event_registered;
     const data: CalendarEvent = {
       id: eventId,
       summary: '[' + event.codemodule + '] ' + event.acti_title,
@@ -67,9 +71,11 @@ async function updateEvents(events: Event[], eventList: CalendarEvent[]) {
         dateTime: new Date(event.end).toISOString(),
         timeZone: config.timeZone
       },
-      colorId: getEventColor(event.type_title),
+      colorId: isRegistered ? getEventColor(event.type_title) :
+        getEventColor('NonRegistered'),
       location: event.room?.code ?? null,
-      description: event.titlemodule ?? null
+      description: event.titlemodule ?? null,
+      transparency: isRegistered ? 'opaque' : 'transparent'
     };
 
     if (event.slots.length > 0) {

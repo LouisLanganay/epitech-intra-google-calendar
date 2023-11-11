@@ -13,6 +13,7 @@ import { CalendarEvent, Planning } from './utils/types';
 import { exit } from 'process';
 import updateEvents from './updateEvents';
 import updateModules from './updateModules';
+import deleteEventsAndModules from './deleteEventsAndModules';
 
 const TOKEN_PATH = process.env.TOKEN_PATH || 'token.json';
 
@@ -35,6 +36,7 @@ async function updateCalendar() {
   let planning: Planning = await getUserPlanning();
   const eventList: CalendarEvent[] = await getEventList();
 
+  await deleteEventsAndModules(planning, eventList);
   let count = await updateEvents(planning.events, eventList);
   count += await updateModules(planning.modules, eventList);
 

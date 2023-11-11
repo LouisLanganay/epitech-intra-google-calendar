@@ -3,8 +3,8 @@ import Colors from './Colors';
 interface CalendarEvent {
   kind?: string;
   etag?: string;
-  id?: string;
-  status?: string;
+  id: string;
+  status?: 'confirmed' | 'tentative' | 'cancelled';
   htmlLink?: string;
   created?: string;
   updated?: string;
@@ -13,7 +13,6 @@ interface CalendarEvent {
   organizer?: Organizer;
   start: Start;
   end: End;
-  transparency?: string;
   iCalUID?: string;
   sequence?: number;
   reminders?: Reminders;
@@ -22,6 +21,7 @@ interface CalendarEvent {
   description?: string | null;
   colorId?: Colors;
   attendees?: Attendee[];
+  transparency?: 'opaque' | 'transparent';
 }
 
 interface Reminders {

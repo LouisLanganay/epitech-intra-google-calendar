@@ -1,3 +1,4 @@
+import { getEventColor } from './utils';
 import { createEvent, updateEvent } from './utils/api';
 import {
   CalendarEvent,
@@ -14,9 +15,9 @@ type StatusMap = {
 };
 
 const colorMap: ColorsMap = {
-  'valid': Colors.BoldGreen,
-  'fail': Colors.BoldRed,
-  'default': Colors.Gray
+  'valid': getEventColor('ModuleValid'),
+  'fail': getEventColor('ModuleFail'),
+  'default': getEventColor('ModuleDefault')
 };
 
 const statusMap: StatusMap = {
@@ -29,8 +30,7 @@ async function updateModules(modules: Module[], eventList: CalendarEvent[]) {
   let count = 0;
 
   for (const module of modules) {
-    const moduleId = module.code.replace(/-/g, '')
-      .toLowerCase() + module.id.toString();
+    const moduleId = 'm' + module.id.toString();
     const data: CalendarEvent = {
       id: moduleId,
       summary: module.title,
@@ -46,7 +46,8 @@ async function updateModules(modules: Module[], eventList: CalendarEvent[]) {
       description: `\
 Semester: ${module.semester}
 Credits: ${module.credits}
-Status: ${statusMap[module.status]}`,
+Status: ${statusMap[module.status]}
+Code: ${module.code}`,
       colorId: colorMap[module.status] || colorMap['default']
     };
 

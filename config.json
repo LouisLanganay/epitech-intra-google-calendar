@@ -1,7 +1,27 @@
 {
   "colors": {
-    "Bootstrap": "Purple",
-    "Follow-up": "Blue"
+    "Bootstrap": "purple",
+    "Kick-off": "blue",
+    "Follow-up": "orange",
+    "ModuleValid": "bold-green",
+    "ModuleFail": "bold-red",
+    "ModuleDefault": "bold-blue",
+    "NonRegistered": "gray"
   },
-  "timeZone": "Europe/Paris"
+  "timeZone": "Europe/Paris",
+  "display": {
+    "events": {
+      "onlyRegistered": false
+    },
+    "modules": {
+      "status":  {
+        "ongoing": true,
+        "valid": true,
+        "fail": true
+      },
+      "hiddenSemesters": [ 0 ],
+      "hiddenModules": [ "B-ADM-100" ]
+    }
+  },
+  "autoDelete": true
 }
