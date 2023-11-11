@@ -4,7 +4,6 @@ import { createEvent, updateEvent } from './utils/api';
 import {
   Attendee,
   CalendarEvent,
-  Colors,
   Event,
   Member
 } from './utils/types';

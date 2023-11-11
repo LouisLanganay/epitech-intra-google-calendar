@@ -1,10 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import {
-  createEvent,
   getEventList,
-  getUserPlanning,
-  updateEvent
+  getUserPlanning
 } from './utils/api';
 const app = require('express')();
 import { getTokens, oAuth2Client, saveTokens } from './utils';
@@ -41,10 +39,9 @@ async function updateCalendar() {
   count += await updateModules(planning.modules, eventList);
 
   console.info(`${count} events created`);
-  exit();
 }
 
-app.get('/', async (req: any) => {
+app.get('/', async (req: any, res: any) => {
   const { code } = req.query;
 
   try {
@@ -53,14 +50,18 @@ app.get('/', async (req: any) => {
     saveTokens(tokens);
     oAuth2Client.setCredentials(tokens);
 
+    res.send('You can close this tab now');
+
     await updateCalendar();
+    exit();
   } catch (error) {
     console.error(error);
   }
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, async () => {
   console.info('Example app listening on port 8888!');
-  main();
+  await main();
+  exit();
 });
 

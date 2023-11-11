@@ -11,13 +11,13 @@
   "timeZone": "Europe/Paris",
   "display": {
     "events": {
-      "onlyRegistered": false
+      "onlyRegistered": true
     },
     "modules": {
       "status":  {
         "ongoing": true,
-        "valid": true,
-        "fail": true
+        "valid": false,
+        "fail": false
       },
       "hiddenSemesters": [ 0 ],
       "hiddenModules": [ "B-ADM-100" ]
