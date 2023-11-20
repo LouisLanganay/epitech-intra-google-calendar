@@ -17,8 +17,10 @@ interface Event {
   end: string;
   total_students_registered: number;
   title: string | null;
-  type_title: string;
-  type_code: string;
+  type_title: string | 'Workshop' | 'Follow-up' | 'Kick-off' | 'Hackathon' |
+  'Conference' | 'Event' | 'Cooperation' | 'TEPitech' | 'Review' | 'Debriefing' |
+  'Camp' | 'Stumper';
+  type_code: string | 'rdv' | 'class' | 'tp' | 'other' | 'exam';
   is_rdv: string;
   nb_hours: string;
   allowed_planning_start: string;

@@ -15,7 +15,13 @@ async function createEvent(event: CalendarEvent) {
       location: event.location,
       description: event.description,
       colorId: event.colorId,
-      attendees: event.attendees
+      attendees: event.attendees?.map((attendee) => {
+        return {
+          email: attendee.email,
+          displayName: attendee.displayName,
+          responseStatus: 'accepted'
+        };
+      })
     }
   });
 

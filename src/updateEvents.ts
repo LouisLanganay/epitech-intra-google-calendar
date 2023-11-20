@@ -1,4 +1,4 @@
-import { getEventColor } from './utils';
+import { getEventColor, getEventEmoji } from './utils';
 import config from '../config.json';
 import { createEvent, updateEvent } from './utils/api';
 import {
@@ -7,6 +7,13 @@ import {
   Event,
   Member
 } from './utils/types';
+
+function getEventSummary(event: Event) {
+  const emoji = getEventEmoji(event.type_code);
+  const name = ' [' + event.codemodule + '] ' + event.acti_title;
+
+  return emoji + name;
+}
 
 async function updateEventSlots(event: Event, eventList: CalendarEvent[]) {
   let count = 0;
@@ -25,7 +32,7 @@ async function updateEventSlots(event: Event, eventList: CalendarEvent[]) {
       }));
       const subData: CalendarEvent = {
         id: subEventId,
-        summary: '[' + event.codemodule + '] ' + event.acti_title,
+        summary: getEventSummary(event),
         start: {
           dateTime: new Date(subSlot.date).toISOString(),
           timeZone: config.timeZone
@@ -61,7 +68,7 @@ async function updateEvents(events: Event[], eventList: CalendarEvent[]) {
     const isRegistered = event.event_registered;
     const data: CalendarEvent = {
       id: eventId,
-      summary: '[' + event.codemodule + '] ' + event.acti_title,
+      summary: getEventSummary(event),
       start: {
         dateTime: new Date(event.start).toISOString(),
         timeZone: config.timeZone

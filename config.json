@@ -3,15 +3,32 @@
     "Bootstrap": "purple",
     "Kick-off": "blue",
     "Follow-up": "orange",
+    "Workshop": "yellow",
+    "Stumper": "bold-red",
+    "Review": "red",
+    "Hackathon": "turquoise",
+    "Conference": "turquoise",
+    "Event": "turquoise",
+    "Cooperation": "turquoise",
+    "TEPitech": "red",
+    "Debriefing": "turquoise",
+    "Camp": "turquoise",
     "ModuleValid": "bold-green",
     "ModuleFail": "bold-red",
     "ModuleDefault": "bold-blue",
     "NonRegistered": "gray"
   },
+  "emojis": {
+    "rdv": "📅",
+    "class": "📚",
+    "tp": "🖥️",
+    "exam": "📝",
+    "other": "📌"
+  },
   "timeZone": "Europe/Paris",
   "display": {
     "events": {
-      "onlyRegistered": true
+      "onlyRegistered": false
     },
     "modules": {
       "status":  {
