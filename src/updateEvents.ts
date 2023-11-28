@@ -46,7 +46,7 @@ async function updateEventSlots(event: Event, eventList: CalendarEvent[]) {
         colorId: getEventColor(event.type_title),
         location: slot.room ?? null,
         description: `\
-${subSlot.note && 'Note: ' + subSlot.note}
+Note: ${subSlot.note}
 Room: ${subSlot.code}`,
         attendees: attendees
       };
