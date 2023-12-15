@@ -7,6 +7,8 @@ type ConfigEmojis = {
 function getEventEmoji(type: string) {
   const emojis: ConfigEmojis = config.emojis;
   const emoji: string = emojis[type];
+  if (!emoji)
+    return emojis['other'];
 
   return emoji;
 }
