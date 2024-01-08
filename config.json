@@ -19,6 +19,7 @@
     "ModuleValid": "bold-green",
     "ModuleFail": "bold-red",
     "ModuleDefault": "bold-blue",
+    "Project time": "bold-blue",
     "NonRegistered": "gray"
   },
   "emojis": {
