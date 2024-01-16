@@ -20,6 +20,7 @@
     "ModuleFail": "bold-red",
     "ModuleDefault": "bold-blue",
     "Project time": "bold-blue",
+    "Pitch": "yellow",
     "NonRegistered": "gray"
   },
   "emojis": {
