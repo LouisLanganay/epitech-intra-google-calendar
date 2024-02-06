@@ -124,7 +124,7 @@ async function getModuleProjects(module: Module): Promise<Project[]> {
     if (!response.data.activites)
       return [];
     return response.data.activites.filter((i: Project) => {
-      return i.is_projet === true;
+      return i.is_projet === true && i.type_code === 'proj';
     });
   }).catch((error) => {
     console.error(error);

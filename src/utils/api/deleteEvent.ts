@@ -2,8 +2,11 @@ import { google } from 'googleapis';
 import oAuth2Client from '../oAuth2Client';
 import { CalendarEvent } from '../../utils/types';
 
-async function deleteEvent(event: CalendarEvent) {
+async function deleteEvent(event: CalendarEvent | undefined) {
   const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
+
+  if (!event)
+    return 0;
 
   if (event.status !== 'confirmed')
     return 0;

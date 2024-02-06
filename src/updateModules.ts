@@ -1,10 +1,12 @@
 import { getEventColor } from './utils';
-import { createEvent, updateEvent } from './utils/api';
+import { createEvent, deleteEvent, updateEvent } from './utils/api';
 import {
   CalendarEvent,
   Module,
-  Colors
+  Colors,
+  Project
 } from './utils/types';
+import config from '../config.json';
 
 type ColorsMap = {
   [key: string]: Colors;
@@ -51,12 +53,47 @@ Code: ${module.code}`,
       colorId: colorMap[module.status] || colorMap['default']
     };
 
-    if (eventList.find((e) => e.id === moduleId))
-      await updateEvent(data);
-    else
+    if (eventList.find((e) => e.id === moduleId)) {
+      if (config.display.modules.display === true)
+        await updateEvent(data);
+      else
+        await deleteEvent(eventList.find((e) => e.id === moduleId));
+    } else if (config.display.modules.display === true)
       count += await createEvent(data);
+    if (config.display.projects.display === true && module.projects.length > 0)
+      await updateModuleProjects(module.projects, eventList);
   }
   return count;
 };
+
+async function updateModuleProjects(
+  Projects: Project[], eventList: CalendarEvent[]
+) {
+  for (const project of Projects) {
+    const projectId = 'project' + project.id_projet + project.codeacti.slice(5);
+    const data: CalendarEvent = {
+      id: projectId,
+      summary: project.title,
+      start: {
+        dateTime: new Date(project.begin).toISOString(),
+        timeZone: 'Europe/Paris'
+      },
+      end: {
+        dateTime: new Date(project.end).toISOString(),
+        timeZone: 'Europe/Paris'
+      },
+      location: project.instance_location,
+      colorId: getEventColor('Blue')
+    };
+
+    if (eventList.find((e) => e.id === projectId)) {
+      if (config.display.projects.display === true)
+        await updateEvent(data);
+      else
+        await deleteEvent(eventList.find((e) => e.id === projectId));
+    } else if (config.display.projects.display === true)
+      await createEvent(data);
+  }
+}
 
 export default updateModules;

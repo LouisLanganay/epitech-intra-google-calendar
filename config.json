@@ -21,7 +21,9 @@
     "ModuleDefault": "bold-blue",
     "Project time": "bold-blue",
     "Pitch": "yellow",
-    "NonRegistered": "gray"
+    "Project": "blue",
+    "NonRegistered": "gray",
+    "Default": "gray"
   },
   "emojis": {
     "rdv": "📅",
@@ -42,8 +44,12 @@
         "valid": false,
         "fail": false
       },
+      "display": false,
       "hiddenSemesters": [ 0 ],
       "hiddenModules": [ "B-ADM-100" ]
+    },
+    "projects": {
+      "display": true
     }
   },
   "autoDelete": true
