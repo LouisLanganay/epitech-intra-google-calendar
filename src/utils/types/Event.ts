@@ -1,5 +1,6 @@
 import Room from './Room';
 import Slot from './Slot';
+import SubEvent from './SubEvent';
 
 interface Event {
   scolaryear: string;
@@ -44,6 +45,7 @@ interface Event {
   register_month: boolean;
   in_more_than_one_month: boolean;
   slots: Slot[];
+  events: SubEvent[];
 }
 
 export default Event;

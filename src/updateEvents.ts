@@ -5,7 +5,8 @@ import {
   Attendee,
   CalendarEvent,
   Event,
-  Member
+  Member,
+  SubEvent
 } from './utils/types';
 
 function getEventSummary(event: Event) {
@@ -60,6 +61,48 @@ Room: ${subSlot.code}`,
   return count;
 }
 
+async function updateSubEvents(
+  subEvents: SubEvent[],
+  event: Event,
+  eventList: CalendarEvent[]
+) {
+  let count = 0;
+  const isRegistered = event.event_registered;
+
+  for (const subEvent of subEvents) {
+    const subEventId = subEvent.code.replace('-', '');
+    const attendees: Attendee[] = subEvent.assistants.map((assistant) => ({
+      email: assistant.login,
+      displayName: assistant.title,
+      responseStatus: 'accepted'
+    }));
+    const subData: CalendarEvent = {
+      id: subEventId,
+      summary: getEventSummary(event),
+      start: {
+        dateTime: new Date(subEvent.begin).toISOString(),
+        timeZone: config.timeZone
+      },
+      end: {
+        dateTime: new Date(subEvent.end).toISOString(),
+        timeZone: config.timeZone
+      },
+      colorId: isRegistered ? getEventColor(event.type_title) :
+        getEventColor('NonRegistered'),
+      location: subEvent.location,
+      attendees: attendees,
+      description: `Number of registered students: ${subEvent.nb_inscrits}
+Number of seats: ${subEvent.seats}`
+    };
+    if (eventList.find((e) => e.id === subEventId)) {
+      await updateEvent(subData);
+      continue;
+    }
+    count += await createEvent(subData);
+  }
+  return count;
+}
+
 async function updateEvents(events: Event[], eventList: CalendarEvent[]) {
   let count = 0;
 
@@ -86,6 +129,11 @@ async function updateEvents(events: Event[], eventList: CalendarEvent[]) {
 
     if (event.slots.length > 0) {
       count += await updateEventSlots(event, eventList);
+      continue;
+    }
+
+    if (event.events.length > 0) {
+      count += await updateSubEvents(event.events, event, eventList);
       continue;
     }
 

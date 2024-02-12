@@ -8,7 +8,8 @@ import {
   Planning,
   Project,
   Slot,
-  User
+  User,
+  SubEvent
 } from '../types';
 import getUser from './getUser';
 import config from '../../../config.json';
@@ -44,6 +45,27 @@ async function getEventSlots(event: Event, user: User): Promise<Slot[]> {
   return response;
 }
 
+async function getEventSubEvents(event: Event): Promise<SubEvent[]> {
+  console.info('Fetching event sub events...');
+  const data = {
+    'method': 'get',
+    'url': process.env.API_BASE_URL + '/module/' + event.scolaryear + '/' +
+    event.codemodule + '/' + event.codeinstance + '/' + event.codeacti +
+    '/?format=json',
+    'headers': {
+      'Cookie': 'user=' + process.env.USER_COOKIE
+    }
+  };
+
+  const response = await Axios(data).then((response) => {
+    return response.data.events;
+  }).catch((error) => {
+    console.error(error);
+  });
+
+  return response;
+}
+
 async function getUserEvent(user: User): Promise<Event[]> {
   console.info('Fetching user events...');
   const data = {
@@ -71,6 +93,7 @@ async function getUserEvent(user: User): Promise<Event[]> {
 
   for (const event of response) {
     event.slots = await getEventSlots(event, user);
+    event.events = await getEventSubEvents(event);
   }
 
   return response;

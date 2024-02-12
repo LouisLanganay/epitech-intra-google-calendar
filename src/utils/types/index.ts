@@ -12,6 +12,7 @@ import User from './User';
 import SubSlot from './SubSlot';
 import Member from './Member';
 import Colors from './Colors';
+import SubEvent from './SubEvent';
 
 export {
   Module,
@@ -25,5 +26,6 @@ export {
   User,
   SubSlot,
   Member,
-  Colors
+  Colors,
+  SubEvent
 };
