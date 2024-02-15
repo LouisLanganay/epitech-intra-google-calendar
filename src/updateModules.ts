@@ -73,7 +73,7 @@ async function updateModuleProjects(
     const projectId = 'project' + project.id_projet + project.codeacti.slice(5);
     const data: CalendarEvent = {
       id: projectId,
-      summary: project.title,
+      summary: project.project_title,
       start: {
         dateTime: new Date(project.begin).toISOString(),
         timeZone: 'Europe/Paris'

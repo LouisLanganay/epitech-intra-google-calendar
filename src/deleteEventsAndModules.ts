@@ -16,13 +16,22 @@ async function deleteEventsAndModules(
   const modulesIds = planning.modules.map((module) => {
     return 'm' + module.id.toString();
   });
+  const subEventsIds = planning.events
+    .map((event) => event.events.map((subEvent) => subEvent.code.replace('-', '')))
+    .flat();
+  const modulesProjectsIds = planning.modules
+    .map((module) => module.projects
+      .map((project) => 'project' + project.id_projet + project.codeacti.slice(5)))
+    .flat();
 
   const eventsToDelete = eventList.filter(({ id, status, end }) => {
     const isEventInPast = moment(end.dateTime).isBefore(moment());
 
     return (
       !eventsIds.includes(id) &&
+      !subEventsIds.includes(id) &&
       !modulesIds.includes(id) &&
+      !modulesProjectsIds.includes(id) &&
       status === 'confirmed' &&
       !isEventInPast
     );

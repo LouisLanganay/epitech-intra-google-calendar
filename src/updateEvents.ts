@@ -10,7 +10,14 @@ import {
 } from './utils/types';
 
 function getEventSummary(event: Event) {
-  const emoji = getEventEmoji(event.type_code);
+  let emoji;
+
+  if (event.type_code === 'other')
+    emoji = getEventEmoji(event.type_title);
+  else
+    emoji = getEventEmoji(event.type_code);
+  if (!emoji)
+    return getEventEmoji('other');
   const name = ' [' + event.codemodule + '] ' + event.acti_title;
 
   return emoji + name;
@@ -132,7 +139,7 @@ async function updateEvents(events: Event[], eventList: CalendarEvent[]) {
       continue;
     }
 
-    if (event.events.length > 0) {
+    if (event.events.length > 0 && event.event_registered) {
       count += await updateSubEvents(event.events, event, eventList);
       continue;
     }
