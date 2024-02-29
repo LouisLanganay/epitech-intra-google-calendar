@@ -28,7 +28,11 @@ async function updateEventSlots(event: Event, eventList: CalendarEvent[]) {
 
   for (const slot of event.slots) {
     for (const subSlot of slot.slots) {
-      const subEventId = slot.codeevent.replace('-', '');
+      let subEventId: string;
+      if (slot.codeevent)
+        subEventId = slot.codeevent.replace('-', '');
+      else
+        subEventId = slot.id.toString() + subSlot.id.toString();
       const attendees: Attendee[] = subSlot.members.map((student: Member) => ({
         email: student.login,
         displayName: student.login.split('@')[0]
@@ -134,7 +138,7 @@ async function updateEvents(events: Event[], eventList: CalendarEvent[]) {
       transparency: isRegistered ? 'opaque' : 'transparent'
     };
 
-    if (event.slots.length > 0) {
+    if (event.slots?.length > 0) {
       count += await updateEventSlots(event, eventList);
       continue;
     }
