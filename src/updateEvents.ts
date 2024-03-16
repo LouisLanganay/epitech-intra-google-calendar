@@ -102,6 +102,7 @@ async function updateSubEvents(
         getEventColor('NonRegistered'),
       location: subEvent.location,
       attendees: attendees,
+      transparency: isRegistered ? 'opaque' : 'transparent',
       description: `Number of registered students: ${subEvent.nb_inscrits}
 Number of seats: ${subEvent.seats}`
     };
