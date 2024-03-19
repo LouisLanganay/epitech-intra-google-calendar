@@ -14,6 +14,10 @@ import {
 import getUser from './getUser';
 import config from '../../../config.json';
 
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function getEventSlots(event: Event, user: User): Promise<Slot[]> {
   console.info('Fetching event slots...');
   const data = {
@@ -92,6 +96,7 @@ async function getUserEvent(user: User): Promise<Event[]> {
   });
 
   for (const event of response) {
+    sleep(1000);
     event.slots = await getEventSlots(event, user);
     event.events = await getEventSubEvents(event);
   }
@@ -125,6 +130,7 @@ async function getUserModules(): Promise<Module[]> {
   });
 
   for (const module of response) {
+    sleep(1000);
     module.projects = await getModuleProjects(module);
   }
 
