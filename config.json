@@ -24,6 +24,7 @@
     "Pitch": "yellow",
     "Project": "blue",
     "NonRegistered": "gray",
+    "Delivery": "bold-red",
     "Default": "gray"
   },
   "emojis": {
