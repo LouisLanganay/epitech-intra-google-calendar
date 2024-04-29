@@ -42,6 +42,15 @@ async function updateEventSlots(event: Event, eventList: CalendarEvent[]) {
           .join(' '),
         responseStatus: 'accepted'
       }));
+      attendees.push({
+        email: subSlot.master.login,
+        displayName: subSlot.master.login.split('@')[0]
+          .split('.')
+          .map(word => word.charAt(0)
+            .toUpperCase() + word.slice(1))
+          .join(' '),
+        responseStatus: 'accepted'
+      });
       const subData: CalendarEvent = {
         id: subEventId,
         summary: getEventSummary(event),
