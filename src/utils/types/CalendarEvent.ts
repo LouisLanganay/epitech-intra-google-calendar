@@ -22,6 +22,7 @@ interface CalendarEvent {
   colorId?: Colors;
   attendees?: Attendee[];
   transparency?: 'opaque' | 'transparent';
+  visibility?: 'default' | 'public' | 'private' | 'confidential';
 }
 
 interface Reminders {

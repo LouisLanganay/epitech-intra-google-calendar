@@ -22,7 +22,9 @@ async function updateEvent(event: CalendarEvent) {
           responseStatus: 'accepted'
         };
       }),
-      status: 'confirmed'
+      status: 'confirmed',
+      visibility: event.visibility || 'default',
+      transparency: event.transparency || 'opaque'
     }
   });
 

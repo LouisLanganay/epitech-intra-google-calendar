@@ -103,7 +103,9 @@ async function updateSubEvents(
       location: subEvent.location,
       attendees: attendees,
       description: `Number of registered students: ${subEvent.nb_inscrits}
-Number of seats: ${subEvent.seats}`
+Number of seats: ${subEvent.seats}`,
+      transparency: isRegistered ? 'opaque' : 'transparent',
+      visibility: 'public'
     };
     if (eventList.find((e) => e.id === subEventId)) {
       await updateEvent(subData);
@@ -135,7 +137,8 @@ async function updateEvents(events: Event[], eventList: CalendarEvent[]) {
         getEventColor('NonRegistered'),
       location: event.room?.code ?? null,
       description: event.titlemodule ?? null,
-      transparency: isRegistered ? 'opaque' : 'transparent'
+      transparency: isRegistered ? 'opaque' : 'transparent',
+      visibility: 'public'
     };
 
     if (event.slots?.length > 0) {
