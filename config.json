@@ -12,6 +12,7 @@
     "Event": "turquoise",
     "Cooperation": "turquoise",
     "TEPitech": "red",
+    "Keynote": "bold-red",
     "TP": "purple",
     "Rush": "blue",
     "Talk": "turquoise",
@@ -24,6 +25,7 @@
     "Pitch": "yellow",
     "Project": "blue",
     "NonRegistered": "gray",
+    "Delivery": "bold-red",
     "Default": "gray"
   },
   "emojis": {

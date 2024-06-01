@@ -20,7 +20,7 @@ interface Event {
   title: string | null;
   type_title: string | 'Workshop' | 'Follow-up' | 'Kick-off' | 'Hackathon' |
   'Conference' | 'Event' | 'Cooperation' | 'TEPitech' | 'Review' | 'Debriefing' |
-  'Camp' | 'Stumper' | 'Defense' | 'Pitch' | 'Talk';
+  'Camp' | 'Stumper' | 'Defense' | 'Pitch' | 'Talk' | 'Delivery';
   type_code: string | 'rdv' | 'class' | 'tp' | 'other' | 'exam';
   is_rdv: string;
   nb_hours: string;
