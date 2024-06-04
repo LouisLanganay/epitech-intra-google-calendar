@@ -114,7 +114,6 @@ async function updateSubEvents(
       transparency: isRegistered ? 'opaque' : 'transparent',
       description: `Number of registered students: ${subEvent.nb_inscrits}
 Number of seats: ${subEvent.seats}`,
-      transparency: isRegistered ? 'opaque' : 'transparent',
       visibility: 'public'
     };
     if (eventList.find((e) => e.id === subEventId)) {
