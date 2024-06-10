@@ -69,7 +69,9 @@ async function updateEventSlots(event: Event, eventList: CalendarEvent[]) {
         description: `\
 Note: ${subSlot.note}
 Room: ${subSlot.code}`,
-        attendees: attendees
+        attendees: attendees,
+        transparency: 'opaque',
+        visibility: 'public'
       };
       if (eventList.find((e) => e.id === subEventId)) {
         await updateEvent(subData);
@@ -150,7 +152,7 @@ async function updateEvents(events: Event[], eventList: CalendarEvent[]) {
       visibility: 'public'
     };
 
-    if (event.slots?.length > 0) {
+    if (event.slots?.length > 0 && isRegistered) {
       count += await updateEventSlots(event, eventList);
       continue;
     }

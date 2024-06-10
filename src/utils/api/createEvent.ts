@@ -21,7 +21,10 @@ async function createEvent(event: CalendarEvent) {
           displayName: attendee.displayName,
           responseStatus: 'accepted'
         };
-      })
+      }),
+      status: 'confirmed',
+      visibility: event.visibility || 'default',
+      transparency: event.transparency || 'transparent'
     }
   });
 

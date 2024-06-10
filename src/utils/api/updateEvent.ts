@@ -24,7 +24,7 @@ async function updateEvent(event: CalendarEvent) {
       }),
       status: 'confirmed',
       visibility: event.visibility || 'default',
-      transparency: event.transparency || 'opaque'
+      transparency: event.transparency || 'transparent'
     }
   });
 
