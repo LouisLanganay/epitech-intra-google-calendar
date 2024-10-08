@@ -71,7 +71,7 @@ Note: ${subSlot.note}
 Room: ${subSlot.code}`,
         attendees: attendees,
         transparency: 'opaque',
-        visibility: 'public'
+        visibility: 'default'
       };
       if (eventList.find((e) => e.id === subEventId)) {
         await updateEvent(subData);
@@ -116,7 +116,7 @@ async function updateSubEvents(
       transparency: isRegistered ? 'opaque' : 'transparent',
       description: `Number of registered students: ${subEvent.nb_inscrits}
 Number of seats: ${subEvent.seats}`,
-      visibility: 'public'
+      visibility: 'default'
     };
     if (eventList.find((e) => e.id === subEventId)) {
       await updateEvent(subData);
@@ -149,7 +149,7 @@ async function updateEvents(events: Event[], eventList: CalendarEvent[]) {
       location: event.room?.code ?? null,
       description: event.titlemodule ?? null,
       transparency: isRegistered ? 'opaque' : 'transparent',
-      visibility: 'public'
+      visibility: 'default'
     };
 
     if (event.slots?.length > 0 && isRegistered) {
