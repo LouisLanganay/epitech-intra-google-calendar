@@ -26,6 +26,7 @@
     "Project": "blue",
     "NonRegistered": "gray",
     "Delivery": "bold-red",
+    "Accompagnement": "purple",
     "Default": "gray"
   },
   "emojis": {
@@ -50,7 +51,7 @@
       },
       "display": false,
       "hiddenSemesters": [ 0 ],
-      "hiddenModules": [ "B-ADM-100" ]
+      "hiddenModules": [ "B-ADM-100", "B-PRO-500" ]
     },
     "projects": {
       "display": true
