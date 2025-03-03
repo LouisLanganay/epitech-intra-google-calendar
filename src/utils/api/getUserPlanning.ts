@@ -20,6 +20,10 @@ function sleep(ms: number) {
 
 async function getEventSlots(event: Event, user: User): Promise<Slot[]> {
   console.info('Fetching event slots...');
+  if (!event.scolaryear || !event.codemodule || !event.codeinstance || !event.codeacti) {
+    console.warn('Missing event properties, skipping slots fetch');
+    return [];
+  }
   const data = {
     'method': 'get',
     'url': process.env.API_BASE_URL + '/module/' + event.scolaryear + '/' +
@@ -44,6 +48,7 @@ async function getEventSlots(event: Event, user: User): Promise<Slot[]> {
     }).filter((slot: any) => slot.slots.length > 0);
   }).catch((error) => {
     console.error(error);
+    return [];
   });
 
   return response;
@@ -51,6 +56,10 @@ async function getEventSlots(event: Event, user: User): Promise<Slot[]> {
 
 async function getEventSubEvents(event: Event): Promise<SubEvent[]> {
   console.info('Fetching event sub events...');
+  if (!event.scolaryear || !event.codemodule || !event.codeinstance || !event.codeacti) {
+    console.warn('Missing event properties, skipping sub events fetch');
+    return [];
+  }
   const data = {
     'method': 'get',
     'url': process.env.API_BASE_URL + '/module/' + event.scolaryear + '/' +
@@ -65,6 +74,7 @@ async function getEventSubEvents(event: Event): Promise<SubEvent[]> {
     return response.data.events;
   }).catch((error) => {
     console.error(error);
+    return [];
   });
 
   return response;

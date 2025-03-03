@@ -11,6 +11,10 @@ async function deleteEventsAndModules(
 ) {
   let count = 0;
   const eventsIds = planning.events.map((event) => {
+    if (!event.codeevent && !event.codeacti) {
+      console.warn('Missing event properties, skipping event');
+      return '';
+    }
     return (event.codeevent || event.codeacti).replace('-', '');
   });
   const modulesIds = planning.modules.map((module) => {
