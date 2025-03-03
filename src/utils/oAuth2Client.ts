@@ -12,7 +12,7 @@ const {
   auth_uri,
   token_uri,
   redirect_uris
-} = credentials.web;
+} = credentials.installed;
 
 const oAuth2Client = new google.auth.OAuth2(
   client_id,

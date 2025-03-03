@@ -50,7 +50,7 @@ npm install
    - Enable the Google Calendar API
    - Go to Credentials
    - Create a new OAuth 2.0 Client ID:
-     - Application type: Web application
+     - Application type: Desktop app
      - Name: Choose any name
      - Authorized redirect URIs: Add `http://localhost:8888`
    - Download the credentials and save them as `credentials.json` in the project root
