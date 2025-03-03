@@ -131,6 +131,10 @@ async function updateEvents(events: Event[], eventList: CalendarEvent[]) {
   let count = 0;
 
   for (const event of events) {
+    if (!event.codeevent && !event.codeacti) {
+      console.warn('Missing event properties, skipping event update');
+      continue;
+    }
     const eventId = (event.codeevent || event.codeacti).replace('-', '');
     const isRegistered = event.event_registered;
     const data: CalendarEvent = {
